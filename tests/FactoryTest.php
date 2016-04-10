@@ -29,7 +29,7 @@ class FactoryTest extends AbstractProxyTest
 
     public function testProxyObject()
     {
-        $proxyObject = $this->factory->instantiateProxyFor(TestClass::class, new \stdClass(), 'Hello');
+        $proxyObject = $this->factory->createProxy(TestClass::class, new \stdClass(), 'Hello');
 
         $this->assertInstanceOf(TestClass::class, $proxyObject);
     }
@@ -63,6 +63,6 @@ class FactoryTest extends AbstractProxyTest
      */
     private function getProxyClass() : string
     {
-        return $this->factory->getProxyFor(TestClass::class);
+        return get_class($this->factory->createProxy(TestClass::class));
     }
 }

@@ -67,7 +67,11 @@ class Factory
     private function validateProxy(MetaInfo $metaInfo, string $class)
     {
         if ($metaInfo->getLastModification() < filemtime($metaInfo->getOriginalFilename())) {
-            $this->reGenerateProxy($metaInfo, $class);
+            if (false === class_exists($class)) {
+                $this->destroyProxy($metaInfo, $class);
+            } else {
+                $this->reGenerateProxy($metaInfo, $class);
+            }
         }
     }
 
@@ -76,7 +80,7 @@ class Factory
      * @param array $arguments
      * @return object
      */
-    public function instantiateProxyFor(string $class, ...$arguments)
+    public function createProxy(string $class, ...$arguments)
     {
         return Instantiator::instantiate($this->getProxyFor($class), $arguments);
     }
@@ -85,7 +89,7 @@ class Factory
      * @param string $class
      * @return string
      */
-    public function getProxyFor(string $class) : string
+    private function getProxyFor(string $class) : string
     {
         if (false === $this->getExistingProxy($class)) {
             $this->dumpProxy($class);
@@ -126,9 +130,18 @@ class Factory
      */
     private function reGenerateProxy(MetaInfo $metaInfo, string $class)
     {
+        $this->destroyProxy($metaInfo, $class);
+        $this->dumpProxy($class);
+    }
+
+    /**
+     * @param MetaInfo $metaInfo
+     * @param string $class
+     */
+    private function destroyProxy(MetaInfo $metaInfo, string $class)
+    {
         unlink($metaInfo->getProxyFile());
         unset($this->metaInfos[$class]);
-        $this->dumpProxy($class);
     }
 
     /**

@@ -26,7 +26,7 @@ class TestClass
     {
     }
 
-    public function testMethod()
+    public function someMethod()
     {
     }
 
