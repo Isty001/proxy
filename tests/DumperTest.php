@@ -73,11 +73,11 @@ class %s extends Proxy\Tests\Fixtures\TestClass
         return $this->instance->publicMethod($string, $std);
     }
 
-    public function someMethod()
+    public function getString() : string
     {
         $this->initialize();
 
-        return $this->instance->someMethod();
+        return $this->instance->getString();
     }
 
     public function anotherPublicMethod()

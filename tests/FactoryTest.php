@@ -29,9 +29,12 @@ class FactoryTest extends AbstractProxyTest
 
     public function testProxyObject()
     {
-        $proxyObject = $this->factory->createProxy(TestClass::class, new \stdClass(), 'Hello');
-
+        $proxyObject = $this->factory->create(TestClass::class, new \stdClass(), 'Hello', []);
         $this->assertInstanceOf(TestClass::class, $proxyObject);
+        $this->assertEquals('Hello', $proxyObject->getString());
+
+        $anotherProxy = $this->factory->createFromArray(TestClass::class, [new \stdClass(), 'Another Hello', []]);
+        $this->assertEquals('Another Hello', $anotherProxy->getString());
     }
 
     public function testRegeneratedProxy()
@@ -63,6 +66,6 @@ class FactoryTest extends AbstractProxyTest
      */
     private function getProxyClass() : string
     {
-        return get_class($this->factory->createProxy(TestClass::class));
+        return get_class($this->factory->create(TestClass::class));
     }
 }

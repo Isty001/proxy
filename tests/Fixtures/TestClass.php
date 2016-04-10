@@ -4,9 +4,14 @@ namespace Proxy\Tests\Fixtures;
 
 class TestClass
 {
-    public function __construct(\stdClass $class, string $string)
+    /**
+     * @var string
+     */
+    private $string;
+
+    public function __construct(\stdClass $class, string $string, array $array)
     {
-        echo 'Instantiated';
+        $this->string = $string;
     }
 
     private function privateMethod()
@@ -26,8 +31,9 @@ class TestClass
     {
     }
 
-    public function someMethod()
+    public function getString() : string
     {
+        return $this->string;
     }
 
     public function anotherPublicMethod()

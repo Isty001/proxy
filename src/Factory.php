@@ -2,8 +2,7 @@
 
 namespace Proxy;
 
-use Proxy\Info\ClassInfo;
-use Proxy\Info\MetaInfo;
+use Proxy\Info\{ClassInfo, MetaInfo};
 
 class Factory
 {
@@ -80,7 +79,27 @@ class Factory
      * @param array $arguments
      * @return object
      */
-    public function createProxy(string $class, ...$arguments)
+    public function create(string $class, ...$arguments)
+    {
+        return $this->instantiate($class, $arguments);
+    }
+
+    /**
+     * @param string $class
+     * @param array $arguments
+     * @return object
+     */
+    public function createFromArray(string $class, array $arguments = [])
+    {
+        return $this->instantiate($class, $arguments);
+    }
+
+    /**
+     * @param string $class
+     * @param array $arguments
+     * @return object
+     */
+    private function instantiate(string $class, array $arguments)
     {
         return Instantiator::instantiate($this->getProxyFor($class), $arguments);
     }

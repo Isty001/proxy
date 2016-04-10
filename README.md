@@ -14,13 +14,13 @@ use Proxy\Tests\Fixtures\TestClass;
 $factory = new Factory(__DIR__ .'/proxies');
 
 //The passed arguments will be used, when the original class is instantiated
-$proxyObject = $factory->createProxy(TestClass::class, new stdClass(), 'Hello'); 
+$proxyObject = $factory->create(TestClass::class, new stdClass(), 'Hello'); 
 
 //Or pass the arguments in an array
 $arguments = [new stdClass(), 'Hello'];
-$proxyObject = $factory->createProxy(TestClass::class, $arguments); 
+$proxyObject = $factory->createFromArray(TestClass::class, $arguments); 
 
-//This is when the real class is actually instantiated, stored, tehn the method invoked on it
+//This is when the real class is actually instantiated, stored, then the method invoked on it
 $proxyObject->someMethod(); 
 ```
 

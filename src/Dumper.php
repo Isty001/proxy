@@ -2,8 +2,7 @@
 
 namespace Proxy;
 
-use Proxy\Info\ClassInfo;
-use Proxy\Info\MethodInfo;
+use Proxy\Info\{ClassInfo, MethodInfo};
 
 class Dumper
 {
